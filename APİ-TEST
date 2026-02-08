@@ -1,0 +1,67 @@
+import requests
+import time
+
+
+def banner():
+    print("""
+██████╗  █████╗ ███╗   ██╗██╗  ██╗██████╗ 
+██╔══██╗██╔══██╗████╗  ██║██║ ██╔╝██╔══██╗
+██████╔╝███████║██╔██╗ ██║█████╔╝ ██████╔╝
+██╔═══╝ ██╔══██║██║╚██╗██║██╔═██╗ ██╔══██╗
+██║     ██║  ██║██║ ╚████║██║  ██╗██║  ██║
+╚═╝     ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝  ╚═╝
+
+        API TEST TOOL
+
+  BY  • PANKR_ANK
+  IG  • PANKR_ANK
+  TG  • LL_PANKR
+-----------------------------------------
+""")
+
+
+def test_api(url, count=10, timeout=5):
+    success = 0
+    fail = 0
+    times = []
+
+    print(f"[+] Test basliyor: {url}")
+    print(f"[+] Toplam istek: {count}\n")
+
+    for i in range(count):
+        try:
+            start = time.time()
+
+            r = requests.get(url, timeout=timeout)
+
+            end = time.time()
+            ms = round((end - start) * 1000, 2)
+
+            times.append(ms)
+
+            if r.status_code == 200:
+                success += 1
+                print(f"[{i+1}] OK  {r.status_code} | {ms} ms")
+            else:
+                fail += 1
+                print(f"[{i+1}] WARN {r.status_code} | {ms} ms")
+
+        except Exception:
+            fail += 1
+            print(f"[{i+1}] ERROR Timeout / Hata")
+
+    avg = round(sum(times) / len(times), 2) if times else 0
+
+    print("\n====== RAPOR ======")
+    print("Basarili:", success)
+    print("Hatali:", fail)
+    print("Ortalama Hiz:", avg, "ms")
+
+
+if __name__ == "__main__":
+    banner()
+
+    url = input("API URL gir: ")
+    count = int(input("Kac test yapilsin: "))
+
+    test_api(url, count)
