@@ -20,10 +20,14 @@ Belirtilen URL’ye çoklu istek göndererek performans analizi yapar.
 Aşağıdaki komutu kopyalayıp çalıştırmanız yeterlidir:
 
 ```bash
-git clone https://github.com/noryxlen-fordrw4/PANKR_.git
+git clone https://github.com/noryxlen-fordrw4/pankr-api-tester.git
 
-cd PANKR_
+cd pankr-api-tester
+
+ls
 
 pip install -r requirements.txt
+
+pip3 install -r requirements.txt
 
 python main.py
